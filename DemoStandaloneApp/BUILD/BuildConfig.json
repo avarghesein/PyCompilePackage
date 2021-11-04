@@ -6,7 +6,7 @@
     "ENTRY_POINT":"Main:Main",
     
     "COPY_RESOURCES": [
-        ["RunApp.sh",""]
+        ["/BUILD/RunApp.sh",""]
     ],
 
     "RENAME_OBJ_FILES": [],
