@@ -6,7 +6,7 @@
     "ENTRY_POINT":"Main:Main",
 
     "COPY_RESOURCES": [
-        ["RunAppTemplate.sh",""]
+        ["RunApp.sh",""]
     ],
 
     "RENAME_OBJ_FILES": [".cpython-37.pyc"],
