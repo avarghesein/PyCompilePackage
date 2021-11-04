@@ -7,7 +7,7 @@ def Main():
 
     if not os.path.exists(UTL.ProgramPath): 
         UTL.ProgramPath = UTL.get_script_path()
-        UTL.BuildConfig = UTL.GetJsonAsObject(f"{UTL.ProgramPath}\\BuildConfig.json")
+        UTL.BuildConfig = UTL.GetJsonAsObject(f"{UTL.ProgramPath}/BuildConfig.json")
     else:
         UTL.BuildConfig = UTL.GetJsonAsObject(UTL.ProgramPath)
         UTL.ProgramPath,_,_ = UTL.GetPathFileExtension(UTL.ProgramPath)

@@ -47,9 +47,13 @@ def BuildAll():
 
         dstPath,_,_ = UTL.GetPathFileExtension(dstFile)
         if not os.path.exists(dstPath): os.makedirs(dstPath, exist_ok=True)
+
+        import re
+        dstFile = re.sub('\.cpython.+\.pyc', '.pyc', dstFile)
         for objFileName in buildCfg.RENAME_OBJ_FILES:
             if objFileName in dstFile:
                 dstFile = dstFile.replace(objFileName,".pyc")
+                
 
         if os.path.exists(dstFile): os.remove(dstFile)
         copyfile(srcFile, dstFile)
@@ -59,28 +63,26 @@ def BuildAll():
         src = f"{srcDir}/{resource[0]}"
 
         if os.path.isdir(src):
-            dst = f"{dstDir}/{resource[1]}"
-            copy_tree(src, dst)
+            for dst in [dstDir, dstRoot]:
+                dst = f"{dst}/{resource[1]}"
+                copy_tree(src, dst)
 
-            dst = f"{dstRoot}/{resource[1]}"
-            copy_tree(src, dst)
-            continue
-        
-        _,file,ext = UTL.GetPathFileExtension(src)
-        dst = f"{dstDir}/{resource[1]}/{file}{ext}"
-        if os.path.exists(dst): os.remove(dst)
-        dstPath,_,_ = UTL.GetPathFileExtension(dst)
-        if not os.path.exists(dstPath): os.makedirs(dstPath, exist_ok=True)
-        copyfile(src, dst)
+       
+        for dst in [dstDir, dstRoot]:        
+            _,file,ext = UTL.GetPathFileExtension(src)
 
-        dst = f"{dstRoot}/{resource[1]}/{file}{ext}"
-        if os.path.exists(dst): os.remove(dst)
-        dstPath,_,_ = UTL.GetPathFileExtension(dst)
-        if not os.path.exists(dstPath): os.makedirs(dstPath, exist_ok=True)
-        copyfile(src, dst)
+            if resource[1] == "":
+                dst = f"{dst}/{resource[1]}/{file}{ext}"
+            else:
+                dst = f"{dst}/{resource[1]}"
+
+            if os.path.exists(dst): os.remove(dst)
+            dstPath,_,_ = UTL.GetPathFileExtension(dst)
+            if not os.path.exists(dstPath): os.makedirs(dstPath, exist_ok=True)
+            copyfile(src, dst)
     
     UTL.Trace("Building Package")
-    zipapp.create_archive(dstDir, f"{dstRoot}/{buildCfg.PACKAGE_NAME}.pyz",compressed=True,main=buildCfg.ENTRY_POINT)
+    zipapp.create_archive(dstDir + "/", f"{dstRoot}/{buildCfg.PACKAGE_NAME}.pyz",compressed=True,main=buildCfg.ENTRY_POINT)
 
     if buildCfg.CLEANUP_OBJ_FILES == "YES":
         UTL.Trace("Cleaning up")

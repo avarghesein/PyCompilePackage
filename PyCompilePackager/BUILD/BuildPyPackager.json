@@ -2,12 +2,14 @@
     "BLD_LEVEL": 1,
     "SRC_DIR":".",
     "BLD_DIR":"./DIST/",
-    "PACKAGE_NAME":"PyCompilePackage",
+    "PACKAGE_NAME":"PyCompilePackager",
     "ENTRY_POINT":"Main:Main",
 
     "COPY_RESOURCES": [
-        ["/BUILD/BuildConfigTemplate.json",""],
-        ["/BUILD/BuildPackage.BAT",""]
+        ["/BUILD/BuildConfigTemplate.json","/BuildConfig.json"],
+        ["/BUILD/BuildPackage.BAT",""],
+        ["/BUILD/BuildPackage.sh",""],
+        ["/BUILD/RunAppTemplate.sh","/RunApp.sh"]
     ],
 
     "RENAME_OBJ_FILES": [".cpython-37.pyc"],

@@ -133,3 +133,6 @@ dmypy.json
 Wakeup.BAT
 BUILD/Trace.txt
 DIST/
+PyCompilePackager/BUILD/Trace.txt
+PyCompilePackager/BUILD/Trace.txt
+PyCompilePackager/BUILD/Log.txt

@@ -2,14 +2,14 @@
     "BLD_LEVEL": 1,
     "SRC_DIR":"..",
     "BLD_DIR":"../DIST/",
-    "PACKAGE_NAME":"MyPackage",
+    "PACKAGE_NAME":"DemoStandaloneApp",
     "ENTRY_POINT":"Main:Main",
-
+    
     "COPY_RESOURCES": [
-        ["RunAppTemplate.sh",""]
+        ["RunApp.sh",""]
     ],
 
-    "RENAME_OBJ_FILES": [".cpython-37.pyc"],
+    "RENAME_OBJ_FILES": [],
 
     "CLEANUP_OBJ_FILES": "YES"
 }
