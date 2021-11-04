@@ -5,6 +5,8 @@
     "PACKAGE_NAME":"MyPackage",
     "ENTRY_POINT":"Main:Main",
 
+    "EXCLUDE_DIRS": [],
+
     "COPY_RESOURCES": [
         ["sample.jpg","/images/sample.img"],
         ["/Scripts",""]

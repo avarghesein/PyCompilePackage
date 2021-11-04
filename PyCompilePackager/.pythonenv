@@ -1,0 +1,2 @@
+PYTHONPATH="."
+BUILD_CONFIG="./BUILD/BuildPyPackager.json"
