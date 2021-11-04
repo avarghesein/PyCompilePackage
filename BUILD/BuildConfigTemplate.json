@@ -1,0 +1,16 @@
+{
+    "BLD_LEVEL": 1,
+    "SRC_DIR":"..",
+    "BLD_DIR":"../DIST/",
+    "PACKAGE_NAME":"MyPackage",
+    "ENTRY_POINT":"Main:Main",
+
+    "COPY_RESOURCES": [
+        ["sample.jpg","/images/sample.img"],
+        ["/Scripts",""]
+    ],
+
+    "RENAME_OBJ_FILES": [".cpython-37.pyc"],
+
+    "CLEANUP_OBJ_FILES": "YES"
+}
