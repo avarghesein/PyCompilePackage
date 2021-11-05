@@ -1,6 +1,6 @@
 {
-    //"python.pythonPath": "/media/TMP-DSK/HOME/WhiteStat/.venv/bin/python",
-    "python.pythonPath": "E:\\AVarghese\\PyEnv\\Web\\Scripts\\python.exe",
+    "python.pythonPath": "/media/TMP-DSK/HOME/WhiteStat/.venv/bin/python",
+    //"python.pythonPath": "E:\\AVarghese\\PyEnv\\Web\\Scripts\\python.exe",
     "editor.minimap.enabled": false,
     "files.watcherExclude": {
         "**/": true
