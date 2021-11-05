@@ -35,7 +35,7 @@ This has the below advantages over the traditional python deployments;
 
 # How To Use PyCompilePackage
 
-Refer [DemoStandaloneApp](https://github.com/avarghesein/PyCompilePackage/tree/main/DemoStandaloneApp), to get a feel of it !
+Refer [DemoStandaloneApp](https://github.com/avarghesein/PyCompilePackage/tree/main/DemoStandaloneApp)
 
 In a nutshell, for every new Python Project you have to do the below;
 
