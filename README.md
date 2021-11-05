@@ -59,4 +59,8 @@ In a nutshell, for every new Python Project you have to do the below;
 
 ![](https://github.com/avarghesein/PyCompilePackage/blob/main/Docs/DeployPackage.png)
 
+# PyCompilePackage, Advanced Options Explained
+
+![](https://github.com/avarghesein/PyCompilePackage/blob/main/Docs/AdvancedOptions.png)
+
 
