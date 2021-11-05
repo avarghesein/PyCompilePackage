@@ -66,6 +66,8 @@ def BuildAll():
             for dst in [dstDir, dstRoot]:
                 dst = f"{dst}/{resource[1]}"
                 copy_tree(src, dst)
+                
+            continue
 
        
         for dst in [dstDir, dstRoot]:        

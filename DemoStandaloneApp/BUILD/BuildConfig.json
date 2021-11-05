@@ -1,5 +1,5 @@
 {
-    "BLD_LEVEL": 1,
+    "BLD_LEVEL": 3,
     "SRC_DIR":"..",
     "BLD_DIR":"../DIST/",
     "PACKAGE_NAME":"DemoStandAloneApp",
@@ -7,7 +7,9 @@
 
     "COPY_RESOURCES": [
         ["/BUILD/RunApp.sh",""],
-        ["/BUILD/RunApp.BAT",""]
+        ["/BUILD/RunApp.BAT",""],
+        ["/ASubNamespace/Docs","/Images"],
+        ["/Diagroms.pptx","/MyArchDiagroms.pptx"]
     ],
 
     "RENAME_OBJ_FILES": [".cpython-37.pyc"],
