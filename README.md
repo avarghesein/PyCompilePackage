@@ -31,7 +31,7 @@ This has the below advantages over the traditional python deployments;
 
 ##### * Easy and fast (re)deployments, as you don't have to deal with lot of files/folder hierarchies 
 
-##### * Since all files are packaged as a single PYZ file, chances of individual file corruptions/missings are less
+##### * Chances for Individual file corruption post deployment is less, Since all files have packaged as a single PYZ file
 
 # How To Use PyCompilePackage
 
@@ -39,4 +39,14 @@ Refer [DemoStandaloneApp](https://github.com/avarghesein/PyCompilePackage/tree/m
 
 In a nutshell, for every new Python Project you have to do the below;
 
-##### 1. Unzip the latest [PyCompilePackage](https://github.com/avarghesein/PyCompilePackage/releases/download/Initial/BUILD.zip) to your Source folder
+##### 1. Unzip the latest [PyCompilePackage](https://github.com/avarghesein/PyCompilePackage/releases/download/Initial/BUILD.zip) to your Source folder (Under BUILD Directory)
+
+##### 2. Update Your Package Name in "BuildConfig.json" and "RunApp.sh or RunApp.BAT"
+
+##### 3. Build/Package your Source using command "\BUILD\BuildPackage.BAT or sh"
+
+##### 4. Run the build package using command "\DIST\RunApp.BAT or sh"
+
+##### 5. Copy "\DIST" folder contents to your Target/Deployment directory/machines and use "RunApp.BAT or sh" to run the package
+
+
