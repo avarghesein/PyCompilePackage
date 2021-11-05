@@ -9,10 +9,11 @@
         ["/BUILD/BuildConfigTemplate.json","/BuildConfig.json"],
         ["/BUILD/BuildPackage.BAT",""],
         ["/BUILD/BuildPackage.sh",""],
-        ["/BUILD/RunAppTemplate.sh","/RunApp.sh"]
+        ["/BUILD/RunAppTemplate.sh","/RunApp.sh"],
+        ["/BUILD/RunAppTemplate.BAT","/RunApp.BAT"]
     ],
 
     "RENAME_OBJ_FILES": [".cpython-37.pyc"],
 
-    "CLEANUP_OBJ_FILES": "NO"
+    "CLEANUP_OBJ_FILES": "YES"
 }

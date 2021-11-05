@@ -1,0 +1,11 @@
+
+@echo Off
+
+SET PYTHON_EXE_PATH=
+
+SET SCRIPT_DIR=%~dp0%
+
+SET PYTHONPATH=%SCRIPT_DIR%
+
+%PYTHON_EXE_PATH%Python.exe -O ^
+%SCRIPT_DIR%/DemoStandAloneApp.pyz

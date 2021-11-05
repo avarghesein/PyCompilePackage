@@ -1,7 +1,7 @@
 import os
 
 def Main():
-    print('working')
+    print('Hello from DemoStandalone App')
     
 
 if __name__ == "__main__":
