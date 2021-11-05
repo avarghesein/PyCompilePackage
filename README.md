@@ -7,7 +7,7 @@ A Picture is Worth a Thousand Words
 
 If you're tired of the below aspects of your Python Deployments, **PyCompilePackage** is the right Tool for you;
 
-#### * You Don't want to share the Original Python Source Code, so that there is no orlittle chance for tampering your source
+#### * You Don't want to share the Original Python Source Code, so that there is no or little chance for tampering your source
 
 #### * You would like to Pre compile your Python Source for better performance gains, before deployment
 
