@@ -63,4 +63,12 @@ In a nutshell, for every new Python Project you have to do the below;
 
 ![](https://github.com/avarghesein/PyCompilePackage/blob/main/Docs/AdvancedOptions.png)
 
+# Build PyCompilePackage
 
+**PyCompilePackage** itself built using the same **PyCompilePackage** Build methodology.
+
+Run **Main.py**, from VSCode and you will find the Built Package (**PyCompilePackager.pyz**) in "DIST" folder.
+
+Copy the Contents of the above "DIST" folder, to "BUILD" folders of target python projects
+(for **PyCompilePackage**, these are its Deployment Folders),
+Which you want to package using **PyCompilePackage** Build methodology.
