@@ -86,9 +86,18 @@ def BuildAll():
 
     srcDir = str(Path(buildCfg.SRC_DIR).absolute())
     dstDir = str(Path(buildCfg.BLD_DIR).absolute())
-    if os.path.exists(dstDir):  rmtree(dstDir)
-    dstRoot = dstDir    
-    dstDir += "/OBJ/"
+
+    dstRoot = dstDir
+    dstPreCompiled = dstDir + "/CompiledCache/"
+    dstOut = dstDir + "/OUTPUT/"    
+    dstDir += "/OBJ/"    
+
+    if os.path.exists(dstDir):  rmtree(dstDir)     
+    if os.path.exists(dstOut):  rmtree(dstOut)
+
+    os.makedirs(dstDir, exist_ok=True)
+    os.makedirs(dstOut, exist_ok=True)
+    
     UTL.Trace("Compilation Started")
 
     Compile(srcDir, dstDir, dstRoot,buildCfg.BLD_LEVEL,buildCfg.RENAME_OBJ_FILES)    
@@ -123,31 +132,48 @@ def BuildAll():
 
         if "requirements.txt" in resource[0]:
             UTL.Trace("Copying Dependencies.This may take a while...")
-            dstTmpPackages = f"{dstDir}/packages"
+
+            dstRequirements = f"{dstPreCompiled}/requirements.txt"
+            dstCompiledCache = dstPreCompiled + "/Cache"
+
+            if os.path.exists(dstRequirements) and os.path.exists(dstCompiledCache):
+                import filecmp
+                result = filecmp.cmp(src, dstRequirements,shallow=False)
+                if result == True:
+                    copy_tree(dstCompiledCache, dstDir)
+                    continue
+
+            CopyResource(src,dstPreCompiled, resource[1])
+            dstCompiledTmp = dstPreCompiled + "/TMP"
+            dstTmpPackages = f"{dstCompiledTmp}/packages"
+            if os.path.exists(dstCompiledTmp):  rmtree(dstCompiledTmp)
             if not os.path.exists(dstTmpPackages): os.makedirs(dstTmpPackages, exist_ok=True)
-            Shell(f"python -m pip install -r {src} --target {dstTmpPackages} --upgrade")
+
+            Shell(f"python -m pip install -r {src} --target {dstTmpPackages}")
 
             for root, dirs, files in os.walk(dstTmpPackages):
                 for dir in dirs:
                     if (dir.endswith("dist-info")): rmtree(f"{root}/{dir}")
 
-            Compile(dstTmpPackages, dstDir, dstRoot,20,buildCfg.RENAME_OBJ_FILES, True)
-
-            RemoveSourceObjectFiles(dstTmpPackages)
-
-            copy_tree(dstTmpPackages, dstDir)
+            if buildCfg.PRE_COMPILE_REQUIREMENTS == "YES":
+                Compile(dstTmpPackages, dstCompiledCache, dstPreCompiled,20,buildCfg.RENAME_OBJ_FILES, True)
+                RemoveSourceObjectFiles(dstTmpPackages)
+                copy_tree(dstTmpPackages, dstCompiledCache)
+            else:
+                copy_tree(dstTmpPackages, dstCompiledCache)
 
             rmtree(dstTmpPackages)
-
+            
+            copy_tree(dstCompiledCache, dstDir)
             UTL.Trace("Copying Resources")
             
     
     for resource in buildCfg.RESOURCES:
         src = f"{srcDir}/{resource[0]}"
-        CopyResource(src,dstRoot, resource[1])
+        CopyResource(src,dstOut, resource[1])
     
     UTL.Trace("Building Package")
-    zipapp.create_archive(dstDir + "/", f"{dstRoot}/{buildCfg.PACKAGE_NAME}.pyz",compressed=True,main=buildCfg.ENTRY_POINT)
+    zipapp.create_archive(dstDir + "/", f"{dstOut}/{buildCfg.PACKAGE_NAME}.pyz",compressed=True,main=buildCfg.ENTRY_POINT)
 
     if buildCfg.CLEANUP_OBJ_FILES == "YES":
         UTL.Trace("Cleaning up")

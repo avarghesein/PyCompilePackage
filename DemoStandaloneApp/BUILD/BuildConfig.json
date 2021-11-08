@@ -18,6 +18,8 @@
         ["DemoStandAloneApp/internal_resources/","DemoStandAloneApp/internal_resources/"]
     ],
 
+    "PRE_COMPILE_REQUIREMENTS" : "NO",
+
     "RENAME_OBJ_FILES": [".cpython-37.pyc"],
 
     "CLEANUP_OBJ_FILES": "YES"

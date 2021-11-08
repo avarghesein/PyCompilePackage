@@ -17,6 +17,8 @@
         ["/BUILD/ReadMe.txt",""]
     ],
 
+    "PRE_COMPILE_REQUIREMENTS" : "YES",
+
     "RENAME_OBJ_FILES": [".cpython-37.pyc"],
 
     "CLEANUP_OBJ_FILES": "YES"
