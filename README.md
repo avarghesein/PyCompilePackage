@@ -7,7 +7,7 @@ A Picture is Worth a Thousand Words
 
 If you're tired of the below aspects of your Python Deployments, **PyCompilePackage** is the right Tool for you;
 
-#### * You Don't want to share the Original Python Source Code, so that there is no orlittle chance for tampering your source
+#### * You Don't want to share the Original Python Source Code, so that there is no or little chance for tampering your source
 
 #### * You would like to Pre compile your Python Source for better performance gains, before deployment
 
@@ -39,7 +39,7 @@ Refer [DemoStandaloneApp](https://github.com/avarghesein/PyCompilePackage/tree/m
 
 In a nutshell, for every new Python Project you have to do the below;
 
-##### 1. Unzip the latest [PyCompilePackage Release](https://github.com/avarghesein/PyCompilePackage/releases/download/Version2/BUILD.zip) to your Source folder (Under BUILD Directory)
+##### 1. Unzip the latest [PyCompilePackage Release](https://github.com/avarghesein/PyCompilePackage/releases/download/Version3/BUILD.zip) to your Source folder (Under BUILD Directory)
 
 ![](https://github.com/avarghesein/PyCompilePackage/blob/main/Docs/BuildTemplateFolder.png)
 
@@ -59,4 +59,16 @@ In a nutshell, for every new Python Project you have to do the below;
 
 ![](https://github.com/avarghesein/PyCompilePackage/blob/main/Docs/DeployPackage.png)
 
+# PyCompilePackage, Advanced Options Explained
 
+![](https://github.com/avarghesein/PyCompilePackage/blob/main/Docs/AdvancedOptions.png)
+
+# Build PyCompilePackage Itself !
+
+**PyCompilePackage** itself built using the same **PyCompilePackage** Build methodology.
+
+Run **Main.py**, from VSCode and you will find the Built Package (**PyCompilePackager.pyz**) in "DIST" folder.
+
+Copy the Contents of the above "DIST" folder, to "BUILD" folders of target python projects
+(for **PyCompilePackage**, these are its Deployment Folders),
+Which you want to package using **PyCompilePackage** Build methodology.
