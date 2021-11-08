@@ -1,7 +1,0 @@
-2021-11-05 11:04:14:[WinError 5] Access is denied: 'E:\\AVarghese\\Git\\Repos\\PyCompilePackage\\DemoStandaloneApp\\BUILD\\..\\DIST/OBJ///Images':<class 'PermissionError'>,Main.py,22
-2021-11-05 11:05:43:[WinError 145] The directory is not empty: 'E:\\AVarghese\\Git\\Repos\\PyCompilePackage\\DemoStandaloneApp\\BUILD\\..\\DIST\\OBJ':<class 'OSError'>,Main.py,22
-2021-11-05 11:06:13:[WinError 123] The filename, directory name, or volume label syntax is incorrect: 'E:\\AVarghese\\Git\\Repos\\PyCompilePackage\\DemoStandaloneApp\\BUILD\\..\\DIST/OBJ///Images/':<class 'OSError'>,Main.py,22
-2021-11-05 11:07:43:[WinError 123] The filename, directory name, or volume label syntax is incorrect: 'E:\\AVarghese\\Git\\Repos\\PyCompilePackage\\DemoStandaloneApp\\BUILD\\..\\DIST/OBJ///Images/':<class 'OSError'>,Main.py,22
-2021-11-05 11:07:57:[WinError 5] Access is denied: 'E:\\AVarghese\\Git\\Repos\\PyCompilePackage\\DemoStandaloneApp\\BUILD\\..\\DIST/OBJ///Images':<class 'PermissionError'>,Main.py,22
-2021-11-05 11:27:11:[WinError 145] The directory is not empty: 'E:\\AVarghese\\Git\\Repos\\PyCompilePackage\\DemoStandaloneApp\\BUILD\\..\\DIST':<class 'OSError'>,Main.py,22
-2021-11-05 11:29:30:could not create 'E:\AVarghese\Git\Repos\PyCompilePackage\DemoStandaloneApp\DIST': Cannot create a file when that file already exists:<class 'distutils.errors.DistutilsFileError'>,Main.py,22
