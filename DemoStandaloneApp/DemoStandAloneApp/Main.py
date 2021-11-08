@@ -22,6 +22,9 @@ def Main():
     print (F2.MyFeature2())
 
     PrinteInternalResource()
+
+    import requests as requests    
+    print(str(requests.get("https://www.google.com",verify=False)))
     
 
 if __name__ == "__main__":

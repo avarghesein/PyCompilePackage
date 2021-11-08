@@ -12,6 +12,7 @@
     ],
 
     "INTERNAL_RESOURCES": [
+        ["BUILD/requirements.txt",""],
         ["DemoStandAloneApp/Diagroms.pptx","DemoStandAloneApp/MyArchDiagroms.pptx"],
         ["DemoStandAloneApp/demo.json","DemoStandAloneApp/demo.json"],
         ["DemoStandAloneApp/internal_resources/","DemoStandAloneApp/internal_resources/"]

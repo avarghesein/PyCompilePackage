@@ -12,19 +12,41 @@ def Shell(s):
     import subprocess
     return subprocess.check_output(s,shell=True)
 
-def BuildAll():
+def RemoveSourceObjectFiles(srcDir):
+    filesToCleanup = []
+    foldersToCleanup = []
 
-    buildCfg = UTL.BuildConfig
+    def FindSourceObjFiles(rootDir):
+        for root, dirs, files in os.walk(rootDir):
+            for dir in dirs:
+                if(dir.endswith("__pycache__")): 
+                    foldersToCleanup.append(f"{root}/{dir}")                    
+                else:
+                    FindSourceObjFiles(f"{root}/{dir}")
 
-    srcDir = str(Path(buildCfg.SRC_DIR).absolute())
-    dstDir = str(Path(buildCfg.BLD_DIR).absolute())
-    if os.path.exists(dstDir):  rmtree(dstDir)
-    dstRoot = dstDir    
-    dstDir += "/OBJ/"
-    UTL.Trace("Compilation Started")
+            for file in fnmatch.filter(files, "*.py"):
+                filesToCleanup.append(f"{root}/{file}")
+               
+
+    FindSourceObjFiles(srcDir)
+
+    for file in filesToCleanup: 
+        try:
+            os.remove(file)
+        except Exception as e:
+            pass        
+
+    for folder in foldersToCleanup: 
+        try:
+            rmtree(folder)
+        except Exception as e:
+            pass
+
+
+def Compile(srcDir, dstDir, dstRoot, buildLevel, objFiles, isPipPackagesCompile=False):
     # Perform same compilation, excluding files in .svn directories.
     import re
-    compileall.compile_dir(srcDir, rx=re.compile(r'[//][.]svn'), force=True, maxlevels=buildCfg.BLD_LEVEL, ddir=dstDir)
+    compileall.compile_dir(srcDir, rx=re.compile(r'[//][.]svn'), force=True, maxlevels=buildLevel, ddir=dstDir)
 
     if not os.path.exists(dstDir): os.makedirs(dstDir, exist_ok=True)
 
@@ -39,8 +61,9 @@ def BuildAll():
     for compileFile in GetCompiledFiles(srcDir):
         srcFile = compileFile
 
-        if dstRoot in srcFile:
-             continue
+        if not isPipPackagesCompile:
+            if dstRoot in srcFile:
+                continue
 
         dstFile = srcFile.replace(srcDir,dstDir)
         dstFile = dstFile.replace("__pycache__","")
@@ -50,13 +73,25 @@ def BuildAll():
 
         import re
         dstFile = re.sub('\.cpython.+\.pyc', '.pyc', dstFile)
-        for objFileName in buildCfg.RENAME_OBJ_FILES:
+        for objFileName in objFiles:
             if objFileName in dstFile:
-                dstFile = dstFile.replace(objFileName,".pyc")
-                
+                dstFile = dstFile.replace(objFileName,".pyc")                
 
         if os.path.exists(dstFile): os.remove(dstFile)
         copyfile(srcFile, dstFile)
+
+def BuildAll():
+
+    buildCfg = UTL.BuildConfig
+
+    srcDir = str(Path(buildCfg.SRC_DIR).absolute())
+    dstDir = str(Path(buildCfg.BLD_DIR).absolute())
+    if os.path.exists(dstDir):  rmtree(dstDir)
+    dstRoot = dstDir    
+    dstDir += "/OBJ/"
+    UTL.Trace("Compilation Started")
+
+    Compile(srcDir, dstDir, dstRoot,buildCfg.BLD_LEVEL,buildCfg.RENAME_OBJ_FILES)    
 
     UTL.Trace("Copying Resources")
 
@@ -85,6 +120,27 @@ def BuildAll():
     for resource in buildCfg.INTERNAL_RESOURCES:
         src = f"{srcDir}/{resource[0]}"
         CopyResource(src,dstDir, resource[1])
+
+        if "requirements.txt" in resource[0]:
+            UTL.Trace("Copying Dependencies.This may take a while...")
+            dstTmpPackages = f"{dstDir}/packages"
+            if not os.path.exists(dstTmpPackages): os.makedirs(dstTmpPackages, exist_ok=True)
+            Shell(f"python -m pip install -r {src} --target {dstTmpPackages} --upgrade")
+
+            for root, dirs, files in os.walk(dstTmpPackages):
+                for dir in dirs:
+                    if (dir.endswith("dist-info")): rmtree(f"{root}/{dir}")
+
+            Compile(dstTmpPackages, dstDir, dstRoot,20,buildCfg.RENAME_OBJ_FILES, True)
+
+            RemoveSourceObjectFiles(dstTmpPackages)
+
+            copy_tree(dstTmpPackages, dstDir)
+
+            rmtree(dstTmpPackages)
+
+            UTL.Trace("Copying Resources")
+            
     
     for resource in buildCfg.RESOURCES:
         src = f"{srcDir}/{resource[0]}"
