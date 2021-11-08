@@ -3,11 +3,14 @@
     "SRC_DIR":"..",
     "BLD_DIR":"../DIST/",
     "PACKAGE_NAME":"MyPackage",
-    "ENTRY_POINT":"Main:Main",
+    "ENTRY_POINT":"MyPackage.Main:Main",
 
-    "COPY_RESOURCES": [
+    "RESOURCES": [
         ["/BUILD/RunApp.sh",""],
         ["/BUILD/RunApp.BAT",""]
+    ],
+
+    "INTERNAL_RESOURCES": [
     ],
 
     "RENAME_OBJ_FILES": [".cpython-37.pyc"],

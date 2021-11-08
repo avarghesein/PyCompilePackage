@@ -1,5 +1,5 @@
 import compileall
-import Core.Utility as UTL
+import  PyCompilePackager.Core.Utility as UTL
 import os
 from pathlib import Path
 from shutil import copyfile, rmtree
@@ -59,29 +59,36 @@ def BuildAll():
         copyfile(srcFile, dstFile)
 
     UTL.Trace("Copying Resources")
-    for resource in buildCfg.COPY_RESOURCES:
-        src = f"{srcDir}/{resource[0]}"
+
+    def CopyResource(srcResource, dstDir, resource):
+        src = srcResource
+        dst = dstDir
 
         if os.path.isdir(src):
-            for dst in [dstDir, dstRoot]:
-                dst = f"{dst}/{resource[1]}"
-                copy_tree(src, dst)
-                
-            continue
-
+           dst = f"{dst}/{resource}"
+           copy_tree(src, dst)
+           return
        
-        for dst in [dstDir, dstRoot]:        
-            _,file,ext = UTL.GetPathFileExtension(src)
+        _,file,ext = UTL.GetPathFileExtension(src)
 
-            if resource[1] == "":
-                dst = f"{dst}/{resource[1]}/{file}{ext}"
-            else:
-                dst = f"{dst}/{resource[1]}"
+        if resource == "":
+            dst = f"{dst}/{file}{ext}"
+        else:
+            dst = f"{dst}/{resource}"
 
-            if os.path.exists(dst): os.remove(dst)
-            dstPath,_,_ = UTL.GetPathFileExtension(dst)
-            if not os.path.exists(dstPath): os.makedirs(dstPath, exist_ok=True)
-            copyfile(src, dst)
+        if os.path.exists(dst): os.remove(dst)
+        dstPath,_,_ = UTL.GetPathFileExtension(dst)
+        if not os.path.exists(dstPath): os.makedirs(dstPath, exist_ok=True)
+        copyfile(src, dst) 
+            
+
+    for resource in buildCfg.INTERNAL_RESOURCES:
+        src = f"{srcDir}/{resource[0]}"
+        CopyResource(src,dstDir, resource[1])
+    
+    for resource in buildCfg.RESOURCES:
+        src = f"{srcDir}/{resource[0]}"
+        CopyResource(src,dstRoot, resource[1])
     
     UTL.Trace("Building Package")
     zipapp.create_archive(dstDir + "/", f"{dstRoot}/{buildCfg.PACKAGE_NAME}.pyz",compressed=True,main=buildCfg.ENTRY_POINT)

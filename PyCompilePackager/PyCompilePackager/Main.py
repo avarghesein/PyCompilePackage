@@ -1,6 +1,6 @@
 import os
-import Core.Builder as BLD
-import Core.Utility as UTL
+import PyCompilePackager.Core.Builder as BLD
+import PyCompilePackager.Core.Utility as UTL
 
 def Main():
     UTL.ProgramPath = f"{UTL.GetEnv('BUILD_CONFIG')}"
@@ -24,4 +24,6 @@ def Main():
         UTL.Log(e)
 
 if __name__ == "__main__":
+    if __package__ == "": __package__ = "PyCompilePackager"
+
     Main()

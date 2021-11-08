@@ -1,0 +1,1 @@
+An Internal Resource Sample

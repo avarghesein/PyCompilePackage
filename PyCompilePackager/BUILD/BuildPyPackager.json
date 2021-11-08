@@ -3,14 +3,18 @@
     "SRC_DIR":".",
     "BLD_DIR":"./DIST/",
     "PACKAGE_NAME":"PyCompilePackager",
-    "ENTRY_POINT":"Main:Main",
+    "ENTRY_POINT":"PyCompilePackager.Main:Main",
 
-    "COPY_RESOURCES": [
+    "RESOURCES": [
         ["/BUILD/BuildConfigTemplate.json","/BuildConfig.json"],
         ["/BUILD/BuildPackage.BAT",""],
         ["/BUILD/BuildPackage.sh",""],
         ["/BUILD/RunAppTemplate.sh","/RunApp.sh"],
         ["/BUILD/RunAppTemplate.BAT","/RunApp.BAT"]
+    ],
+
+    "INTERNAL_RESOURCES": [
+        ["/BUILD/ReadMe.txt",""]
     ],
 
     "RENAME_OBJ_FILES": [".cpython-37.pyc"],
