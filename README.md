@@ -39,7 +39,7 @@ Refer [DemoStandaloneApp](https://github.com/avarghesein/PyCompilePackage/tree/m
 
 In a nutshell, for every new Python Project you have to do the below;
 
-##### 1. Unzip the latest [PyCompilePackage Release](https://github.com/avarghesein/PyCompilePackage/releases/download/Version5/BUILD.zip) to your Source folder (Under BUILD Directory)
+##### 1. Unzip the latest [PyCompilePackage Release](https://github.com/avarghesein/PyCompilePackage/releases/download/Version6/BUILD.zip) to your Source folder (Under BUILD Directory)
 
 ![](https://github.com/avarghesein/PyCompilePackage/blob/main/Docs/BuildTemplateFolder.png)
 
@@ -51,11 +51,11 @@ In a nutshell, for every new Python Project you have to do the below;
 
 ![](https://github.com/avarghesein/PyCompilePackage/blob/main/Docs/BuildPackage.png)
 
-##### 4. Run the built package using command "\DIST\RunApp.BAT or sh"
+##### 4. Run the built package using command "\DIST\OUTPUT\RunApp.BAT or sh"
 
 ![](https://github.com/avarghesein/PyCompilePackage/blob/main/Docs/RunPackage.png)
 
-##### 5. Copy "\DIST" folder contents to your Target/Deployment directory/machines and use "RunApp.BAT or sh" to run the package
+##### 5. Copy "\DIST\OUTPUT" folder contents to your Target/Deployment directory/machines and use "RunApp.BAT or sh" to run the package
 
 ![](https://github.com/avarghesein/PyCompilePackage/blob/main/Docs/DeployPackage.png)
 
@@ -72,6 +72,10 @@ e.g.
 
       "INTERNAL_RESOURCES": [
               ["BUILD/requirements.txt",""],
+
+The below setting will control the pre-compilation of external dependencies.
+
+      "PRE_COMPILE_REQUIREMENTS" : "NO",
 
 # Build PyCompilePackage Itself !
 
