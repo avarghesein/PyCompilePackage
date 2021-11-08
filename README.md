@@ -39,7 +39,7 @@ Refer [DemoStandaloneApp](https://github.com/avarghesein/PyCompilePackage/tree/m
 
 In a nutshell, for every new Python Project you have to do the below;
 
-##### 1. Unzip the latest [PyCompilePackage Release](https://github.com/avarghesein/PyCompilePackage/releases/download/Version4/BUILD.zip) to your Source folder (Under BUILD Directory)
+##### 1. Unzip the latest [PyCompilePackage Release](https://github.com/avarghesein/PyCompilePackage/releases/download/Version5/BUILD.zip) to your Source folder (Under BUILD Directory)
 
 ![](https://github.com/avarghesein/PyCompilePackage/blob/main/Docs/BuildTemplateFolder.png)
 
@@ -62,6 +62,16 @@ In a nutshell, for every new Python Project you have to do the below;
 # PyCompilePackage, Advanced Options Explained
 
 ![](https://github.com/avarghesein/PyCompilePackage/blob/main/Docs/AdvancedOptions.png)
+
+**Embedding External Dependencies**: 
+If you include **requirements.txt** file as an **Internal Resource**, The Builder will copy all mentioned dependencies in the
+'requirements.txt' file to the final standalone APP file. Though this build process may take a while, 
+the Standalone App is now selfcontained, and does not require the dependencies available on the target machines !
+
+e.g.
+
+      "INTERNAL_RESOURCES": [
+              ["BUILD/requirements.txt",""],
 
 # Build PyCompilePackage Itself !
 
