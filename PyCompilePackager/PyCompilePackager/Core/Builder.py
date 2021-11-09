@@ -98,10 +98,31 @@ def BuildAll():
     os.makedirs(dstDir, exist_ok=True)
     os.makedirs(dstOut, exist_ok=True)
     
+    bootStrapFile = f"{srcDir}/{buildCfg.PACKAGE_NAME}/Bootstrap.py"
+    if buildCfg.EXTRACT_REQUIREMENTS == "YES":
+        import pkgutil
+        package = UTL.MainPackage
+        res = pkgutil.get_data(package + '.Template', 'Bootstrap.py.tpl').decode("utf-8")
+        entryPackage = buildCfg.ENTRY_POINT
+        entryPackage = entryPackage.split(":")[0]
+        res = res.replace("<<namespace>>",f"import {entryPackage}")
+        entryPoint = buildCfg.ENTRY_POINT
+        entryPoint = entryPoint.replace(":",".") + "()"
+        res = res.replace("<<main>>",entryPoint)
+        buildCfg.ENTRY_POINT = f"{buildCfg.PACKAGE_NAME}.Bootstrap:Main"
+        import uuid
+        venv = uuid.uuid4().hex
+        res = res.replace("<<GUILD>>",venv)
+        with open(bootStrapFile, "w") as bootstrapPy:
+            content = res
+            bootstrapPy.write(content)
+            bootstrapPy.close()
+        
+
     UTL.Trace("Compilation Started")
 
     Compile(srcDir, dstDir, dstRoot,buildCfg.BLD_LEVEL,buildCfg.RENAME_OBJ_FILES)    
-
+    if os.path.exists(bootStrapFile): os.remove(bootStrapFile)
     UTL.Trace("Copying Resources")
 
     def CopyResource(srcResource, dstDir, resource):
@@ -166,8 +187,7 @@ def BuildAll():
             
             copy_tree(dstCompiledCache, dstDir)
             UTL.Trace("Copying Resources")
-            
-    
+   
     for resource in buildCfg.RESOURCES:
         src = f"{srcDir}/{resource[0]}"
         CopyResource(src,dstOut, resource[1])

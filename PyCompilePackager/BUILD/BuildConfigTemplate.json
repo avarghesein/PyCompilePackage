@@ -14,6 +14,7 @@
     ],
 
     "PRE_COMPILE_REQUIREMENTS" : "NO",
+    "EXTRACT_REQUIREMENTS" : "NO",
 
     "RENAME_OBJ_FILES": [".cpython-37.pyc"],
 

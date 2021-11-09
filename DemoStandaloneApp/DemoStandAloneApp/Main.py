@@ -25,6 +25,10 @@ def Main():
 
     import requests as requests    
     print(str(requests.get("https://www.google.com",verify=False)))
+
+    import numpy as np
+
+    print(np.zeros(2))
     
 
 if __name__ == "__main__":

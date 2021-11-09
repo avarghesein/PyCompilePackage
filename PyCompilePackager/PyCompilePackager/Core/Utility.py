@@ -7,6 +7,7 @@ StatusFile = None
 LogFile = None
 TraceFile = None
 BuildConfig = None
+MainPackage = None
 
 ProgramPath = None
 

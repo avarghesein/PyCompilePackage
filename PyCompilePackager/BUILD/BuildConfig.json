@@ -14,10 +14,12 @@
     ],
 
     "INTERNAL_RESOURCES": [
-        ["BUILD/ReadMe.txt",""]
+        ["BUILD/ReadMe.txt",""],
+        ["PyCompilePackager/Template","PyCompilePackager/Template"]
     ],
 
-    "PRE_COMPILE_REQUIREMENTS" : "YES",
+    "PRE_COMPILE_REQUIREMENTS" : "NO",
+    "EXTRACT_REQUIREMENTS" : "NO",
 
     "RENAME_OBJ_FILES": [".cpython-37.pyc"],
 

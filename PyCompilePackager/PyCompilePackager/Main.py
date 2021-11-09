@@ -3,6 +3,7 @@ import PyCompilePackager.Core.Builder as BLD
 import PyCompilePackager.Core.Utility as UTL
 
 def Main():
+    UTL.MainPackage = __package__
     UTL.ProgramPath = f"{UTL.GetEnv('BUILD_CONFIG')}"
 
     if not os.path.exists(UTL.ProgramPath): 
