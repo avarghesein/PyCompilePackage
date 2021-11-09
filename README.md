@@ -39,7 +39,7 @@ Refer [DemoStandaloneApp](https://github.com/avarghesein/PyCompilePackage/tree/m
 
 In a nutshell, for every new Python Project you have to do the below;
 
-##### 1. Unzip the latest [PyCompilePackage Release](https://github.com/avarghesein/PyCompilePackage/releases/download/Version6/BUILD.zip) to your Source folder (Under BUILD Directory)
+##### 1. Unzip the latest [PyCompilePackage Release](https://github.com/avarghesein/PyCompilePackage/releases/download/Version7/BUILD.zip) to your Source folder (Under BUILD Directory)
 
 ![](https://github.com/avarghesein/PyCompilePackage/blob/main/Docs/BuildTemplateFolder.png)
 
@@ -73,9 +73,23 @@ e.g.
       "INTERNAL_RESOURCES": [
               ["BUILD/requirements.txt",""],
 
-The below setting will control the pre-compilation of external dependencies.
+The below settings will control the pre-compilation of external dependencies. 
 
       "PRE_COMPILE_REQUIREMENTS" : "NO",
+ 
+"NO" will copy the external packages as is to the final APP file.
+"YES" will compile the external packages before copying to the final APP file.
+
+
+      "EXTRACT_REQUIREMENTS" : "NO",
+ 
+This setting is specific for **Libraries having C/C++ extensions** such as Numpy.
+Such Libraries needs to be extracted on target machines before running the APP. (They wont run properly from the ZipApp package)
+
+A "NO" will not extract the external packages to the target machines, instead it will try to load from the APP file itself.
+
+"YES" will first extract the external packages before loading the dependencies.
+Required for external libraries having C/C++ extensions.
 
 # Build PyCompilePackage Itself !
 
