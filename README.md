@@ -1,6 +1,6 @@
 # PyCompilePackage
 Lightweight Python Pre Compiler and Packager (As a single Package),
-with Added Support for Libraries having C/C++ extensions. e.g. Numpy
+with Added Support for Dependencies having C/C++ extensions. e.g. Numpy
 
 A Picture is Worth a Thousand Words
 
