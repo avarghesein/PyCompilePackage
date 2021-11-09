@@ -136,3 +136,4 @@ DIST/
 PyCompilePackager/BUILD/Trace.txt
 PyCompilePackager/BUILD/Trace.txt
 PyCompilePackager/BUILD/Log.txt
+DemoStandaloneApp/BUILD/Trace.txt

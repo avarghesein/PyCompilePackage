@@ -1,5 +1,3 @@
-
-<<namespace>>
 import os
 from shutil import rmtree
 import sys
@@ -26,4 +24,5 @@ def Main():
 
     sys.path.insert(0,venv)
 
+    <<namespace>>
     <<main>>
