@@ -1,5 +1,5 @@
 {
-    "BLD_LEVEL": 1,
+    "BLD_LEVEL": 3,
     "SRC_DIR":"..",
     "BLD_DIR":"../DIST/",
     "PACKAGE_NAME":"PyCompilePackager",
@@ -14,7 +14,6 @@
     ],
 
     "INTERNAL_RESOURCES": [
-        ["BUILD/ReadMe.txt",""],
         ["PyCompilePackager/Template","PyCompilePackager/Template"]
     ],
 

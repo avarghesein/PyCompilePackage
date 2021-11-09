@@ -8,11 +8,11 @@ def Main():
     location =  str(Path(os.path.dirname(__file__)).absolute())
     location = location.replace( str(__package__) + ".pyz","")
     location = location.replace(__package__,"")
-    print("\Zip Location:" +  location + "\n\n")
+    print("Zip Location:" +  location + "\n\n")
 
     venv = f"{location}/.venv/<<GUILD>>"
 
-    print("\Virtual Environment:" +  venv + "\n\n")
+    print("Virtual Environment:" +  venv + "\n\n")
 
     if not os.path.exists(venv):
         venvRoot = f"{location}/.venv"

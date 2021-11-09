@@ -1,8 +1,8 @@
 import compileall
-import  PyCompilePackager.Core.Utility as UTL
+import PyCompilePackager.Core.Utility as UTL
 import os
 from pathlib import Path
-from shutil import copyfile, rmtree
+from shutil import copy, copyfile, rmtree
 from distutils.dir_util import copy_tree
 import fnmatch
 import zipapp
@@ -11,6 +11,25 @@ import zipapp
 def Shell(s):
     import subprocess
     return subprocess.check_output(s,shell=True)
+
+def RemovePyCaches(srcDir):
+    foldersToCleanup = []
+
+    def FindSourceObjFiles(rootDir):
+        for root, dirs, files in os.walk(rootDir):
+            for dir in dirs:
+                if(dir.endswith("__pycache__")): 
+                    foldersToCleanup.append(f"{root}/{dir}")                    
+                else:
+                    FindSourceObjFiles(f"{root}/{dir}")             
+
+    FindSourceObjFiles(srcDir)    
+
+    for folder in foldersToCleanup: 
+        try:
+            rmtree(folder)
+        except Exception as e:
+            pass
 
 def RemoveSourceObjectFiles(srcDir):
     filesToCleanup = []
@@ -98,31 +117,6 @@ def BuildAll():
     os.makedirs(dstDir, exist_ok=True)
     os.makedirs(dstOut, exist_ok=True)
     
-    bootStrapFile = f"{srcDir}/{buildCfg.PACKAGE_NAME}/Bootstrap.py"
-    if buildCfg.EXTRACT_REQUIREMENTS == "YES":
-        import pkgutil
-        package = UTL.MainPackage
-        res = pkgutil.get_data(package + '.Template', 'Bootstrap.py.tpl').decode("utf-8")
-        entryPackage = buildCfg.ENTRY_POINT
-        entryPackage = entryPackage.split(":")[0]
-        res = res.replace("<<namespace>>",f"import {entryPackage}")
-        entryPoint = buildCfg.ENTRY_POINT
-        entryPoint = entryPoint.replace(":",".") + "()"
-        res = res.replace("<<main>>",entryPoint)
-        buildCfg.ENTRY_POINT = f"{buildCfg.PACKAGE_NAME}.Bootstrap:Main"
-        import uuid
-        venv = uuid.uuid4().hex
-        res = res.replace("<<GUILD>>",venv)
-        with open(bootStrapFile, "w") as bootstrapPy:
-            content = res
-            bootstrapPy.write(content)
-            bootstrapPy.close()
-        
-
-    UTL.Trace("Compilation Started")
-
-    Compile(srcDir, dstDir, dstRoot,buildCfg.BLD_LEVEL,buildCfg.RENAME_OBJ_FILES)    
-    if os.path.exists(bootStrapFile): os.remove(bootStrapFile)
     UTL.Trace("Copying Resources")
 
     def CopyResource(srcResource, dstDir, resource):
@@ -146,6 +140,8 @@ def BuildAll():
         if not os.path.exists(dstPath): os.makedirs(dstPath, exist_ok=True)
         copyfile(src, dst) 
             
+    bootStrapFile = f"{srcDir}/{buildCfg.PACKAGE_NAME}/Bootstrap.py"
+    bootStrapCachedFile = f"{dstPreCompiled}/Bootstrap.py"
 
     for resource in buildCfg.INTERNAL_RESOURCES:
         src = f"{srcDir}/{resource[0]}"
@@ -161,9 +157,12 @@ def BuildAll():
                 import filecmp
                 result = filecmp.cmp(src, dstRequirements,shallow=False)
                 if result == True:
-                    copy_tree(dstCompiledCache, dstDir)
+                    copy_tree(dstCompiledCache, dstDir)                    
+                    UTL.Trace("Reusing Compiled/Package Cache")
                     continue
-
+            
+            UTL.Trace("Building Compiled/Package Cache.This may take a while...")
+            if os.path.exists(bootStrapCachedFile):  os.remove(bootStrapCachedFile)
             CopyResource(src,dstPreCompiled, resource[1])
             dstCompiledTmp = dstPreCompiled + "/TMP"
             dstTmpPackages = f"{dstCompiledTmp}/packages"
@@ -186,12 +185,52 @@ def BuildAll():
             rmtree(dstTmpPackages)
             
             copy_tree(dstCompiledCache, dstDir)
+
             UTL.Trace("Copying Resources")
    
     for resource in buildCfg.RESOURCES:
         src = f"{srcDir}/{resource[0]}"
-        CopyResource(src,dstOut, resource[1])
-    
+        CopyResource(src,dstOut, resource[1])  
+
+    def AddBootStrap():
+        if buildCfg.EXTRACT_REQUIREMENTS == "YES":            
+            if os.path.exists(bootStrapCachedFile):
+                copyfile(bootStrapCachedFile, bootStrapFile)
+                UTL.Trace("Adding Bootstrapper")
+                buildCfg.ENTRY_POINT = f"{buildCfg.PACKAGE_NAME}.Bootstrap:Main"
+                return
+                
+            import pkgutil
+            package = UTL.MainPackage
+            res = pkgutil.get_data(package + '.Template', 'Bootstrap.py.tpl').decode("utf-8")
+            entryPackage = buildCfg.ENTRY_POINT
+            entryPackage = entryPackage.split(":")[0]
+            res = res.replace("<<namespace>>",f"import {entryPackage}")
+            entryPoint = buildCfg.ENTRY_POINT
+            entryPoint = entryPoint.replace(":",".") + "()"
+            res = res.replace("<<main>>",entryPoint)            
+            import uuid
+            venv = uuid.uuid4().hex
+            res = res.replace("<<GUILD>>",venv)
+            with open(bootStrapFile, "w") as bootstrapPy:
+                content = res
+                bootstrapPy.write(content)
+                bootstrapPy.close()
+
+            UTL.Trace("Adding Bootstrapper")
+            buildCfg.ENTRY_POINT  = f"{buildCfg.PACKAGE_NAME}.Bootstrap:Main"
+            copyfile(bootStrapFile,bootStrapCachedFile)
+        else:
+            UTL.Trace("Skipping Bootstrapper")
+
+    UTL.Trace("Source Compilation Started")   
+    RemovePyCaches(srcDir)
+    UTL.Trace("Removed Old Pyc files")
+    AddBootStrap()
+    UTL.Trace("Processed Bootstrap")
+    Compile(srcDir, dstDir, dstRoot,buildCfg.BLD_LEVEL,buildCfg.RENAME_OBJ_FILES)    
+    if os.path.exists(bootStrapFile): os.remove(bootStrapFile)
+
     UTL.Trace("Building Package")
     zipapp.create_archive(dstDir + "/", f"{dstOut}/{buildCfg.PACKAGE_NAME}.pyz",compressed=True,main=buildCfg.ENTRY_POINT)
 
