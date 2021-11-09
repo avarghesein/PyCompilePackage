@@ -81,8 +81,10 @@ The below setting will control the pre-compilation of external dependencies.
 
 **PyCompilePackage** itself built using the same **PyCompilePackage** Build methodology.
 
-Run **Main.py**, from VSCode and you will find the Built Package (**PyCompilePackager.pyz**) in "DIST" folder.
+Use command **"\BUILD\BuildPackage.BAT or sh"**, and find the Built Package (**PyCompilePackager.pyz**) in "DIST/OUTPUT" folder. 
 
-Copy the Contents of the above "DIST" folder, to "BUILD" folders of target python projects
+Or you could directly run **Main.py**, from VSCode to achieve the same result. 
+
+Copy the Contents of the above "DIST/OUTPUT" folder, to "BUILD" folders of target python projects
 (for **PyCompilePackage**, these are its Deployment Folders),
 Which you want to package using **PyCompilePackage** Build methodology.
