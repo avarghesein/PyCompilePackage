@@ -1,2 +1,3 @@
 PYTHONPATH="."
+LIB_PATH="./DemoStandAloneApp/LIBS"
 BUILD_CONFIG="./BUILD/BuildConfig.json"

@@ -1,6 +1,30 @@
+import sys
 import os
+from pathlib import Path
+
+
+def GetEnv(key, defaultVal=""):
+    try:
+        return os.environ[key] if key in os.environ else defaultVal
+    except Exception as e:
+        return defaultVal
 
 def PrinteInternalResource():
+    libPath = f"{GetEnv('LIB_PATH')}"
+    location =  str(Path(os.path.dirname(__file__)).absolute())
+    package = __package__
+    sys.path.insert(0,libPath + "/PyCompilePackager.pyz")
+
+     #[Recommended] Use PyCompilePackager's extended ResourceManager to extract any internal resources
+    import PyCompilePackager.Core.Resource as RS
+    resourceManager = RS.Resource(location,package)
+    res = resourceManager.Get('demo.json')
+    print(res)
+    res = resourceManager.Get('anotherInternal.json','internal_resources')
+    print(res)
+    res = resourceManager.Get('BuildLevels.png','ASubNamespace/Docs')
+    
+    #Use Python's normal package manager to extract resources
     import pkgutil
     package = __package__
     print(package)

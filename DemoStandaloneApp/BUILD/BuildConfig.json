@@ -8,6 +8,7 @@
     "RESOURCES": [
         ["BUILD/RunApp.sh",""],
         ["BUILD/RunApp.BAT",""],
+        ["DemoStandAloneApp/LIBS","/LIBS"],
         ["DemoStandAloneApp/ASubNamespace/Docs","/Images"]
     ],
 
@@ -15,7 +16,8 @@
         ["BUILD/requirements.txt",""],
         ["DemoStandAloneApp/Diagroms.pptx","DemoStandAloneApp/MyArchDiagroms.pptx"],
         ["DemoStandAloneApp/demo.json","DemoStandAloneApp/demo.json"],
-        ["DemoStandAloneApp/internal_resources/","DemoStandAloneApp/internal_resources/"]
+        ["DemoStandAloneApp/internal_resources/","DemoStandAloneApp/internal_resources/"],
+        ["DemoStandAloneApp/ASubNamespace/Docs","DemoStandAloneApp/ASubNamespace/Docs"]       
     ],
 
     "PRE_COMPILE_REQUIREMENTS" : "YES",
