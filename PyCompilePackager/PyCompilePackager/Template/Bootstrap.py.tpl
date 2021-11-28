@@ -19,7 +19,13 @@ def Main():
         if os.path.exists(venvRoot): rmtree(venvRoot)
         os.makedirs(venv, exist_ok=True)
 
-        with zipfile.ZipFile(os.path.dirname(__file__)+ "/..") as zf:
+        import re
+        exp = r'(.+\.pyz).*'
+        zipFileLocation = re.sub(exp, r'\1', os.path.dirname(__file__))
+
+        print("Opening Zip File->" + zipFileLocation)
+
+        with zipfile.ZipFile(zipFileLocation) as zf:
             zf.extractall(venv)
 
     sys.path.insert(0,venv)

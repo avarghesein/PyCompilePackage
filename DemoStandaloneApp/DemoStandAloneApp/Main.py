@@ -10,10 +10,11 @@ def GetEnv(key, defaultVal=""):
         return defaultVal
 
 def PrinteInternalResource():
-    libPath = f"{GetEnv('LIB_PATH')}"
+    libPath = f"{GetEnv('LIB_PATH')}" + "/PyCompilePackager.pyz"
     location =  str(Path(os.path.dirname(__file__)).absolute())
     package = __package__
-    sys.path.insert(0,libPath + "/PyCompilePackager.pyz")
+    print("Lib Path ->" + libPath)
+    sys.path.insert(0,libPath )
 
      #[Recommended] Use PyCompilePackager's extended ResourceManager to extract any internal resources
     import PyCompilePackager.Core.Resource as RS
