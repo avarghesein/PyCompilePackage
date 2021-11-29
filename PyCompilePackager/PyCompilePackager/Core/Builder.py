@@ -63,9 +63,10 @@ def RemoveSourceObjectFiles(srcDir):
 
 
 def Compile(srcDir, dstDir, dstRoot, buildLevel, objFiles, isPipPackagesCompile=False):
+    print("SKIP DIRS->" + UTL.BuildConfig.SKIP_DIRS)
     # Perform same compilation, excluding files in .svn directories.
     import re
-    compileall.compile_dir(srcDir, rx=re.compile(r'[//][.]svn'), force=True, maxlevels=buildLevel, ddir=dstDir)
+    compileall.compile_dir(srcDir, rx=re.compile(UTL.BuildConfig.SKIP_DIRS), force=True, maxlevels=buildLevel, ddir=dstDir)
 
     if not os.path.exists(dstDir): os.makedirs(dstDir, exist_ok=True)
 
@@ -102,6 +103,13 @@ def Compile(srcDir, dstDir, dstRoot, buildLevel, objFiles, isPipPackagesCompile=
 def BuildAll():
 
     buildCfg = UTL.BuildConfig
+
+    import re
+    buildCfg.SKIP_DIRS = re.sub(r'([\\/])', r'[/\\\\]',buildCfg.SKIP_DIRS)
+    buildCfg.SKIP_DIRS = re.sub(r'([.+*]+)', r'\\\1',buildCfg.SKIP_DIRS)    
+    buildCfg.SKIP_DIRS = "|".join([ f"({token})" for token in buildCfg.SKIP_DIRS.split(",") ])
+
+    UTL.BuildConfig = buildCfg
 
     srcDir = str(Path(buildCfg.SRC_DIR).absolute())
     dstDir = str(Path(buildCfg.BLD_DIR).absolute())

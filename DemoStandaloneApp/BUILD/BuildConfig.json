@@ -1,6 +1,7 @@
 {
     "BLD_LEVEL": 3,
     "SRC_DIR":"..",
+    "SKIP_DIRS" : ".git,.vscode,dist,dist/output",
     "BLD_DIR":"../DIST/",
     "PACKAGE_NAME":"DemoStandAloneApp",
     "ENTRY_POINT":"DemoStandAloneApp.Main:Main",
@@ -13,15 +14,14 @@
     ],
 
     "INTERNAL_RESOURCES": [
-        ["BUILD/requirements.txt",""],
         ["DemoStandAloneApp/Diagroms.pptx","DemoStandAloneApp/MyArchDiagroms.pptx"],
         ["DemoStandAloneApp/demo.json","DemoStandAloneApp/demo.json"],
         ["DemoStandAloneApp/internal_resources/","DemoStandAloneApp/internal_resources/"],
         ["DemoStandAloneApp/ASubNamespace/Docs","DemoStandAloneApp/ASubNamespace/Docs"]       
     ],
 
-    "PRE_COMPILE_REQUIREMENTS" : "YES",
-    "EXTRACT_REQUIREMENTS" : "YES",
+    "PRE_COMPILE_REQUIREMENTS" : "NO",
+    "EXTRACT_REQUIREMENTS" : "NO",
 
     "RENAME_OBJ_FILES": [".cpython-37.pyc"],
 
