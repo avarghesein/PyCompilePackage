@@ -14,14 +14,15 @@
     ],
 
     "INTERNAL_RESOURCES": [
+        ["BUILD/requirements.txt",""],
         ["DemoStandAloneApp/Diagroms.pptx","DemoStandAloneApp/MyArchDiagroms.pptx"],
         ["DemoStandAloneApp/demo.json","DemoStandAloneApp/demo.json"],
         ["DemoStandAloneApp/internal_resources/","DemoStandAloneApp/internal_resources/"],
         ["DemoStandAloneApp/ASubNamespace/Docs","DemoStandAloneApp/ASubNamespace/Docs"]       
     ],
 
-    "PRE_COMPILE_REQUIREMENTS" : "NO",
-    "EXTRACT_REQUIREMENTS" : "NO",
+    "PRE_COMPILE_REQUIREMENTS" : "YES",
+    "EXTRACT_REQUIREMENTS" : "YES",
 
     "RENAME_OBJ_FILES": [".cpython-37.pyc"],
 
