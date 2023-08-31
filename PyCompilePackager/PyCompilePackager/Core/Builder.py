@@ -62,11 +62,17 @@ def RemoveSourceObjectFiles(srcDir):
             pass
 
 
+def IsSrcCopy():
+    if not hasattr(UTL.BuildConfig, "NO_COMPILE") : return False
+    return UTL.BuildConfig.NO_COMPILE == "YES"
+
 def Compile(srcDir, dstDir, dstRoot, buildLevel, objFiles, isPipPackagesCompile=False):
     print("SKIP DIRS->" + UTL.BuildConfig.SKIP_DIRS)
     # Perform same compilation, excluding files in .svn directories.
     import re
-    compileall.compile_dir(srcDir, rx=re.compile(UTL.BuildConfig.SKIP_DIRS), force=True, maxlevels=buildLevel, ddir=dstDir)
+
+    if not IsSrcCopy():
+        compileall.compile_dir(srcDir, rx=re.compile(UTL.BuildConfig.SKIP_DIRS), force=True, maxlevels=buildLevel, ddir=dstDir)
 
     if not os.path.exists(dstDir): os.makedirs(dstDir, exist_ok=True)
 
@@ -75,7 +81,7 @@ def Compile(srcDir, dstDir, dstRoot, buildLevel, objFiles, isPipPackagesCompile=
             for dir in dirs:
                 GetCompiledFiles(f"{root}/{dir}")
 
-            for file in fnmatch.filter(files, "*.pyc"):
+            for file in fnmatch.filter(files, "*.pyc" if not IsSrcCopy() else "*.py"):
                 yield f"{root}/{file}" 
 
     for compileFile in GetCompiledFiles(srcDir):

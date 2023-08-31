@@ -11,8 +11,8 @@ def Main():
         UTL.BuildConfig = UTL.GetJsonAsObject(f"{UTL.ProgramPath}/BuildConfig.json")
     else:
         UTL.BuildConfig = UTL.GetJsonAsObject(UTL.ProgramPath)
-        UTL.ProgramPath,_,_ = UTL.GetPathFileExtension(UTL.ProgramPath)
-        
+        UTL.ProgramPath,_,_ = UTL.GetPathFileExtension(UTL.ProgramPath)    
+       
     ProgramPath = UTL.ProgramPath
 
     UTL.LogFile = f"{ProgramPath}/Log.txt"
