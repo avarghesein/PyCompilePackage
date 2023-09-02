@@ -40,7 +40,7 @@ Refer [DemoStandaloneApp](https://github.com/avarghesein/PyCompilePackage/tree/m
 
 In a nutshell, for every new Python Project you have to do the below;
 
-##### 1. Unzip the latest [PyCompilePackage Release](https://github.com/avarghesein/PyCompilePackage/releases/download/Version13/BUILD.zip) to your Source folder (Under BUILD Directory)
+##### 1. Unzip the latest [PyCompilePackage Release](https://github.com/avarghesein/PyCompilePackage/releases/download/Version14/BUILD.zip) to your Source folder (Under BUILD Directory)
 
 ![](https://github.com/avarghesein/PyCompilePackage/blob/main/Docs/BuildTemplateFolder.png)
 
@@ -63,6 +63,14 @@ In a nutshell, for every new Python Project you have to do the below;
 # PyCompilePackage, Advanced Options Explained
 
 ![](https://github.com/avarghesein/PyCompilePackage/blob/main/Docs/AdvancedOptions.png)
+
+**Compiling Source Code**:
+By Default Source Python Files will be copied to the package without any pre-compilation. 
+This will enable the target package to be run under different versions of python, without any re-packaging.
+However If you would like to copy the pre-compiled (pyc files) version, instead of the original source files (py files),
+say to hide the source code from the users, use the below Setting
+
+      "NO_COMPILE" : "NO"
 
 **Embedding External Dependencies**: 
 If you include **requirements.txt** file as an **Internal Resource**, The Builder will copy all mentioned dependencies in the
