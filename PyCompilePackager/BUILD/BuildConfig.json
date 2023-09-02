@@ -1,6 +1,6 @@
 {
     "BLD_LEVEL": 3,
-    "SRC_DIR":".",
+    "SRC_DIR":"..",
     "SKIP_DIRS" : ".git,.vscode",
     "BLD_DIR":"../DIST/",
     "PACKAGE_NAME":"PyCompilePackager",

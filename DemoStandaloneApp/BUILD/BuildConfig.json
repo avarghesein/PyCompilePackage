@@ -21,6 +21,7 @@
         ["DemoStandAloneApp/ASubNamespace/Docs","DemoStandAloneApp/ASubNamespace/Docs"]       
     ],
 
+    "NO_COMPILE" : "YES",
     "PRE_COMPILE_REQUIREMENTS" : "YES",
     "EXTRACT_REQUIREMENTS" : "YES",
 
